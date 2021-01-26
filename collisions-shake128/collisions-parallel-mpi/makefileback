@@ -1,0 +1,36 @@
+CC = g++
+C = -c
+O = -o
+VERSION = --std=c++11
+FLAGS = -Wall -g
+SOURCES = collision.cpp shake128.cpp keccak.cpp utilities.cpp
+OUTPUT1 = shake128
+OUTPUT2 = collision
+REMOVE = shake128 collision *.o
+
+
+all: collision shake128
+
+ifeq ($(TARGET),Collision)
+	FLAGS += -D COLLISION_
+endif
+
+ifeq ($(TARGET),Shake128)
+	FLAGS += -D SHAKE_
+endif
+collision: collision.o keccak.o utilities.o
+	$(CC) $(FLAGS) $(VERSION) collision.o keccak.o utilities.o -o $(OUTPUT2)
+shake128: shake.o keccak.o utilities.o
+	$(CC) $(FLAGS) $(VERSION) shake.o keccak.o utilities.o -o $(OUTPUT1)
+shake128.o: shake128.cpp keccak.cpp
+	$(CC) $(C) $(FLAGS) $(VERSION) shake128.cpp
+collision.o: collision.cpp keccak.cpp
+	$(CC) $(C) $(FLAGS) $(VERSION)  collision.cpp 
+keccak.o: keccak.cpp keccak.h
+	$(CC) $(C) $(FLAGS) $(VERSION) keccak.cpp
+utilities.o: utilities.cpp
+	$(CC) $(C) $(FLAGS) $(VERSION) utilities.cpp
+
+.PHONY:
+clean:
+	@rm -rf $(REMOVE)
