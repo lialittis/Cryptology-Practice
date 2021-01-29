@@ -3,25 +3,36 @@
 #include <iomanip>
 #include <stdint.h>
 #include <gmp.h>
+#include <gmpxx.h>
 #include <vector>
-#include <sstream.h>
+#include <sstream>
 
 using namespace std;
 
-/*Quarter Round on the ChaCha State 
-  => actually it's a kind of "colum round" or "diagonal round"
-*/
-void quarterRound(uint32_t *state, int a_id, int b_id, int c_id, int d_id){
-	state[a_id] += state[b_id]; state[d_id] ^=state[a_id]; state[d_id] = rot(state[d_id],16);
-	state[c_id] += state[d_id]; state[b_id] ^=state[c_id]; state[b_id] = rot(state[b],12);
-	state[a_id] += state[b_id]; state[d_id] ^=state[a_id]; state[d_id] = rot(state[d],8);
-	state[c_id] += state[d_id]; state[b_id] ^=state[c_id]; state[b_id] = rot(state[b],7);
-}
+void num_to_8_le_bytes(uint64_t ac, uint8_t * out);
 
 uint32_t rotation(uint32_t abcd, int n){
 	n = n % 32;
 	return (abcd << n) | (abcd >> (32-n));
 }
+
+
+/*Quarter Round on the ChaCha State 
+  => actually it's a kind of "colum round" or "diagonal round"
+*/
+void quarterRound(uint32_t *state, int a_id, int b_id, int c_id, int d_id){
+	state[a_id] += state[b_id]; state[d_id] ^=state[a_id]; state[d_id] = rotation(state[d_id],16);
+	state[c_id] += state[d_id]; state[b_id] ^=state[c_id]; state[b_id] = rotation(state[b_id],12);
+	state[a_id] += state[b_id]; state[d_id] ^=state[a_id]; state[d_id] = rotation(state[d_id],8);
+	state[c_id] += state[d_id]; state[b_id] ^=state[c_id]; state[b_id] = rotation(state[b_id],7);
+}
+
+/*
+uint32_t rotation(uint32_t abcd, int n){
+	n = n % 32;
+	return (abcd << n) | (abcd >> (32-n));
+}
+*/
 
 // serialize function
 void serialize(uint32_t * state, uint8_t *out){
@@ -31,6 +42,13 @@ void serialize(uint32_t * state, uint8_t *out){
 			out[4*i + j] = (state[i] >> (8*j)) & 0xff;
 	}
 }
+/*
+   Adapted from poly1305aes_test_clamp.c version 20050207
+   D. J. Bernstein
+   Public domain.
+*/
+void clamp(uint8_t * r);
+
 
 /* The ChaCha20 Block Function
    The ChaCha block function transforms a ChaCha state by running multiple quarter rounds.
@@ -230,7 +248,7 @@ void poly1305_key_gen(uint32_t * key, uint32_t * nonce, uint8_t * out)
 }
 
 
-void num_to_8_le_bytes(u_int64_t ac, u_int8_t * out)
+void num_to_8_le_bytes(uint64_t ac, uint8_t * out)
 {
     for(int i=0; i<8;i++)
         out[i] = (ac>>(8*i)) & 0xff;
@@ -257,7 +275,7 @@ void num_to_8_le_bytes(u_int64_t ac, u_int8_t * out)
 
  */
 
-void chacha20_aead_encrypt(uint8_t * aad, uint64_t alength, uint32_t * key, uint32_t *  iv, uint32_t constant, uint8_t * plaintext, uint64_t mlength)
+void aead_encrypt(uint8_t * aad, uint64_t alength, uint32_t * key, uint32_t *  iv, uint32_t constant, uint8_t * plaintext, uint64_t mlength)
 {
     uint32_t nonce[3];
     nonce[0] = constant;
@@ -303,17 +321,18 @@ void chacha20_aead_encrypt(uint8_t * aad, uint64_t alength, uint32_t * key, uint
 void readFile(istream & file, uint32_t &out){
 	char* buff = new char[3];
 	stringstream str;
-	int ac;
+	int x;
 	for(int i=0;i<4;i++){
 		file.get(buff,3);
 		str.seekp(0,ios::beg);
 		str.seekg(0,ios::beg);
 		str.write(buff,2);
-		str>>std::hex>>ac;
-		out+=ac<<(8*i);
+		str>>std::hex>>x;
+		out+=x<<(8*i);
 	}
 }
-void readAad(istream & file, vector<u_int8_t> & out)
+
+void readAad(istream & file, vector<uint8_t> & out)
 {
     char* buff = new char[3];
     stringstream ss_buff;
@@ -336,9 +355,9 @@ int main (int argc, char *argv[])
 		return 1;
 	}
 
-	ifstream key;
-	key.open(argv[1]);
-	if(!key){
+	ifstream keyFile;
+	keyFile.open(argv[1]);
+	if(!keyFile){
 		cout<<"The key file cannot be opened !"<<endl;
 		return 1;
 	}
@@ -346,30 +365,34 @@ int main (int argc, char *argv[])
 	uint32_t iv[2] = {0};
 	uint32_t constant = 0;
 
-	readFile(key,constant);
-	key.get();
-	for(int i=0;i<2;I==){
-		readFile(key,iv[1]);
+	uint32_t key[8] = {0};
+	vector <uint8_t> aad;
+
+	readFile(keyFile,constant);
+	keyFile.get();
+	for(int i=0;i<2;i++){
+		readFile(keyFile,iv[i]);
 	}
 
 	keyFile.get();
     for(int i=0; i<8; i++)
-        readInt(keyFile, key[i]);
+        readFile(keyFile, key[i]);
     keyFile.get();  
-    readAad(keyFile, aad);
+    
+	readAad(keyFile, aad);
   
-    vector<u_int8_t> input;
+    vector<uint8_t> input;
     char c;
 	while (cin.get(c))
 	{
 		input.push_back(c);
 	}
 
-    u_int8_t aadAar[aad.size()];
+    uint8_t aadAar[aad.size()];
     copy(aad.begin(),aad.end(),aadAar);
-    u_int8_t plaintext[input.size()];
+    uint8_t plaintext[input.size()];
     copy(input.begin(), input.end(), plaintext);
 
-    chacha20_aead_encrypt(aadAar,aad.size(),key,iv,constant,plaintext,input.size());
+    aead_encrypt(aadAar,aad.size(),key,iv,constant,plaintext,input.size());
 
 }

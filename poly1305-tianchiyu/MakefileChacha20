@@ -1,0 +1,6 @@
+all: chacha20-poly1305
+
+clean: rm *.o chacha20-poly1305
+
+chacha20-poly1305: chacha20-poly1305.cpp
+	g++ chacha20-poly1305.cpp -o chacha20-poly1305 -lgmpxx -lgmp

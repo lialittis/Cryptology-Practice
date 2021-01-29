@@ -1,0 +1,6 @@
+all: poly1305-check
+
+clean: rm *.o poly1305-check
+
+poly1305-check: poly1305-check.cpp
+	g++ poly1305-check.cpp -o poly1305-check -lgmpxx -lgmp
