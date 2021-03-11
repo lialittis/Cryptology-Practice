@@ -1,0 +1,7 @@
+all:poly1305-gen
+
+clean:
+	rm poly1305-gen
+
+poly1305-gen: poly1305.cpp
+	g++ poly1305.cpp -o poly1305-gen -lgmpxx -lgmp

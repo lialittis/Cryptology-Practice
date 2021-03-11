@@ -1,0 +1,7 @@
+all: chacha20-poly1305-check
+
+clean:
+	rm chacha20-poly1305-check
+
+chacha20-poly1305-check: chacha20-poly1305-check.cpp
+	g++ chacha20-poly1305-check.cpp -o chacha20-poly1305-check -lgmpxx -lgmp
