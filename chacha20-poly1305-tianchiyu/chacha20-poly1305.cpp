@@ -394,5 +394,5 @@ int main (int argc, char *argv[])
     copy(input.begin(), input.end(), plaintext);
 
     aead_encrypt(aadAar,aad.size(),key,iv,constant,plaintext,input.size());
-
+	return 0;
 }
