@@ -1,0 +1,131 @@
+Looking for vowels
+Gaines method
+Suggested consonants: A O D K Q Z R S 
+Remaining letters:  W N B F I L H P J M U V C X
+Sukhotin method
+Putative vowels:    N B F W H E
+   N   B   F   W   H   E  
+N  0   4   0   1   2   2 
+B  0   0   1   0   1   0 
+F  1   1   0   0   0   1 
+W  0   1   0   3   0   0 
+H  1   1   1   0   0   0 
+E  2   4   0   0   0   0 
+--------------------------
+   e   a   o   i   u   y  
+e  2   3   2   2   0   0 
+a  0   0   0   0   0   1 
+o  0   0   1   0   5   0 
+i  2   0   3   0   0   0 
+u  0   0   0   0   0   0 
+y  0   0   1   0   0   0
+
+
+N e	61	11.13	V l	21	3.83
+I t	54	9.85	H y	17	3.10
+B a	46	8.39	E g	15	2.74
+F i	39	7.12	O w	15	2.74
+J r	39	7.12	A m	14	2.55
+U s	38	6.93	Y f	13	2.37
+W o	38	6.93	M b	11	2.01
+P h	34	6.20	G p	10	1.82
+L n	30	5.47	T u	10	1.82
+C d	24	4.38	X c	9	1.64
+
+
+Process:
+
+obviously, N is e
+=Ne
+
+IPN=the
+=It
+=Ph
+=Ne
+
+IPBI=th?t
+=Ba
+
+PNJ=he? IPNJ=the?
+=Jr
+
+choose a vowel for F, according the precent and context:
+=Fi
+then:
+=Wo
+
+AWIPNJ=?other
+=Am
+
+BJJFDBV=arr?i?
+=Dv
+=Vl
+
+PNBDFVH=heavil?
+=Hy
+
+FLPNBVIP=i?health?
+=Ln
+
+YBIPNJ=?ather YFJN=?ire
+=Yf
+
+MHIPNYFJN=?ythefire
+=Mb
+
+MTI=b?t
+=Tu
+
+GWWJVH=>oorly(in health)
+=Gp
+
+JNBCH=rea?y
+=Cd
+
+VWWKFLEBI=loo?in?at
+=Kk
+=Eg
+
+UFIIFLE=?itting(by the fire)
+=Us
+
+XWAFLETG=?omingup
+=Xc
+
+ONVXWANC=?elcomed
+=Ow
+
+UTMQNXI=sub?ect
+=Qj
+
+NZXFINC=e?cited
+=Zx
+
+remaining R S and z q
+
+Result:
+
+Cypher: ABCDEFGHIJKLMNOPQRSTUVWXYZ
+Clear : madvgipytrknbewhjzquslocfx
+AHAWIPNJOBUUFIIFLEMHIPNYFJNMTIGWWJVHFLPNBVIPBLCDNJ
+mymotherwassittingbythefirebutpoorlyinhealthandver
+HVWOFLUGFJFIUVWWKFLEBIFIIPJWTEPPNJINBJUBLCCNUGWLCF
+ylowinspiritslookingatitthroughhertearsanddespondi
+LEPNBDFVHBMWTIPNJUNVYBLCIPNYBIPNJVNUUVFIIVNUIJBLEN
+ngheavilyaboutherselfandthefatherlesslittlestrange
+JOPWOBUBVJNBCHONVXWANCMHUWANEJWUUNUWYGJWGPNIFXGFLU
+rwhowasalreadywelcomedbysomegrossesofpropheticpins
+FLBCJBONJTGUIBFJUIWBOWJVCLWIBIBVVNZXFINCWLIPNUTMQN
+inadrawerupstairstoaworldnotatallexcitedonthesubje
+XIWYPFUBJJFDBVAHAWIPNJFUBHOBUUFIIFLEMHIPNYFJNIPBIM
+ctofhisarrivalmymotherisaywassittingbythefirethatb
+JFEPIOFLCHABJXPBYINJLWWLDNJHIFAFCBLCUBCBLCDNJHCWTM
+rightwindymarchafternoonverytimidandsadandverydoub
+IYTVWYNDNJXWAFLEBVFDNWTIWYIPNIJFBVIPBIOBUMNYWJNPNJ
+tfulofevercomingaliveoutofthetrialthatwasbeforeher
+OPNLVFYIFLEPNJNHNUBUUPNCJFNCIPNAIWIPNOFLCWOWGGWUFI
+whenliftinghereyesasshedriedthemtothewindowopposit
+NUPNUBOBUIJBLENVBCHXWAFLETGIPNEBJCNLAHAWIPNJPBCBUT
+eshesawastrangeladycomingupthegardenmymotherhadasu
+JNYWJNMWCFLEBIIPNUNXWLCEVBLXNIPBIFIOBUAFUUMNIUNH
+reforebodingatthesecondglancethatitwasmissbetsey

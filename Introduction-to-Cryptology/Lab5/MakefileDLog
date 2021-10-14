@@ -1,0 +1,21 @@
+LIBPATH = ../Lib
+include $(LIBPATH)/Makefile.common 
+
+all: test_dlog
+
+clean:
+	rm *.o test_dlog
+
+######################################################################
+hash.o: hash.c hash.h
+	$(CC) $(LDFLAGS) -c hash.c
+
+dlog.o: dlog.c dlog.h
+	$(CC) $(LDFLAGS) -c dlog.c
+
+test_dlog.o: test_dlog.c
+	$(CC) $(LDFLAGS) -c test_dlog.c
+
+test_dlog: hash.o dlog.o test_dlog.o
+	$(CC) $(LDFLAGS) hash.o dlog.o test_dlog.o $(LIBS) -o test_dlog
+

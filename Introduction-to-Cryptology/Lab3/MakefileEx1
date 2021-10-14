@@ -1,0 +1,18 @@
+LIBPATH = ../Lib
+include $(LIBPATH)/Makefile.common
+
+all: testEx1
+
+clean:
+	rm *.o testEx1
+
+######################################################################
+easyhash.o: easyhash.c easyhash.h
+	$(CC) $(CFLAGS) -c easyhash.c
+
+testEx1.o: testEx1.c
+	$(CC) $(CFLAGS) -c testEx1.c
+
+OBJS = easyhash.o testEx1.o
+testEx1: $(OBJS) $(TOOLSLIB)
+	$(CC) $(LDFLAGS) $(OBJS) $(TOOLSLIB) -o testEx1
