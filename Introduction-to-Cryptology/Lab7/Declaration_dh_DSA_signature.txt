@@ -1,3 +1,0 @@
-#DSA signature:
-r = 0xafbf81d64123079d7d1fd3cb37e312f9f203fe4e
-s = 0xe8a6156adce35a559251c53845db2a959d9fb16e

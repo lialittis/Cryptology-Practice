@@ -1,2 +1,0 @@
-#RSA signature
-S = 0x1778a32babfcd76afbf3dec0bfd1625c550b98789b3a872dcaac648e18c9ac97

@@ -1,3 +1,0 @@
-clean:
-	make -f MakefileDLog clean
-	make -f MakefileFactor clean
