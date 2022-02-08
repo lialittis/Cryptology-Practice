@@ -1,0 +1,17 @@
+LIBPATH = ../Lib
+include $(LIBPATH)/Makefile.common 
+
+all: challenges
+
+clean:
+	rm *.o challenges
+
+######################################################################
+
+challenges.o: challenges.c
+	$(CC) $(CFLAGS) -c challenges.c
+
+OBJS = challenges.o
+
+challenges: $(OBJS) $(CRYPTOLIB) $(TOOLSLIB)
+	$(CC) $(LDFLAGS) $(OBJS) $(CRYPTOLIB) $(TOOLSLIB) -o challenges

@@ -1,0 +1,17 @@
+LIBPATH = ../Lib
+
+include $(LIBPATH)/Makefile.common 
+
+all: test_for_prof
+
+clean:
+	rm *.o test_for_prof
+
+######################################################################
+test_for_prof.o: test_for_prof.c
+	$(CC) $(CFLAGS) -c test_for_prof.c
+
+OBJS = test_for_prof.o
+
+test_for_prof: $(OBJS) $(CRYPTOLIB) $(TOOLSLIB) 
+	$(CC) $(LDFLAGS) $(OBJS) $(CRYPTOLIB) $(TOOLSLIB) -o test_for_prof
